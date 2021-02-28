@@ -1,0 +1,56 @@
+﻿<Window x:Class="Hospital_Charges.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hospital_Charges"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        ResizeMode="CanMinimize"
+        Title="Hospital Charges" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="20*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Day(s) stayed" FontSize="18" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="1" Grid.Column="2" ToolTip="Please enter Number of Days stayed at Hospital" Margin="5 0 0 0" FontSize="20" Text="{Binding InputDays}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <Label Content="Medical charges" FontSize="18" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="2" Grid.Column="2" Margin="5 0 0 0"  FontSize="20" Text="{Binding InputMedicalCharges, StringFormat=C}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <Label Content="Surgical charges" FontSize="18" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="3" Grid.Column="2" Margin="5 0 0 0" FontSize="20" Text="{Binding InputSurgicalCharges, StringFormat=C}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <Label Content="Lab fees" FontSize="18" Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="4" Grid.Column="2" Margin="5 0 0 0" FontSize="20" Text="{Binding InputLabFees, StringFormat=C}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <Label Content="Rehabilitation charges" FontSize="18" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="5" Grid.Column="2" Margin="5 0 0 0" FontSize="20" Text="{Binding InputRehabilitationCharges, StringFormat=C}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <Label Content="Amount with Tax(13%)" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="{Binding Days}" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
+        <Label Content="{Binding MedicalCharges}" ContentStringFormat="C" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="20"></Label>
+        <Label Content="{Binding SurgicalCharges}" ContentStringFormat="C" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
+        <Label Content="{Binding LabFees}" ContentStringFormat="C" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
+        <Label Content="{Binding RehabilitationCharges}" ContentStringFormat="C" Grid.Row="5" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
+        <Label Content="$350/Day" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+            <Button Grid.Row="6" Name="Calculate" Grid.Column="1" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Left" Click="Calculate_Click" >Calculate</Button>
+            <Button Grid.Row="6" Grid.Column="1" Margin="20 0 0 0" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Right" >Recipt</Button>
+        </StackPanel>
+    </Grid>
+</Window>
