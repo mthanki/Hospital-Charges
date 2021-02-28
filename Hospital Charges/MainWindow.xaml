@@ -38,8 +38,8 @@
             <ColumnDefinition Width="30*"/>
             <ColumnDefinition Width=".1*"/>
             <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="30*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
         <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="2" Fill="#FFFFD5DC" />
@@ -109,15 +109,18 @@
                 </StackPanel>
             </materialDesign:HintAssist.Hint>
         </TextBox>
-        <Label Content="Amount with Tax(13%)" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <Label Content="{Binding DaysCharge}" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
+        <Label Content="Amount Due" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
+        <DockPanel VerticalAlignment="Center" Grid.Column="5">
+            <ToggleButton Name="ViewTaxToggle" VerticalContentAlignment="Center" Checked="ViewTaxToggle_Changed" Unchecked="ViewTaxToggle_Changed"></ToggleButton>
+            <TextBlock FontSize="18" Margin="5 0 0 2">Include Tax</TextBlock>
+        </DockPanel>
+        <Label Content="{Binding DaysCharge}" ContentStringFormat="C" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
         <Label Content="{Binding MedicalCharges}" ContentStringFormat="C" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="20"></Label>
         <Label Content="{Binding SurgicalCharges}" ContentStringFormat="C" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
         <Label Content="{Binding LabFees}" ContentStringFormat="C" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
         <Label Content="{Binding RehabilitationCharges}" ContentStringFormat="C" Grid.Row="5" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
-        <Label Content="$350/Day" Grid.Row="1" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-            <Button Grid.Row="6" Name="Calculate" Grid.Column="1" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Left" Click="Calculate_Click" >Calculate</Button>
+            <Button Grid.Row="6" Name="Calculate" Grid.Column="1" IsEnabled="False" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Left" Click="Calculate_Click" >Calculate</Button>
             <Button Grid.Row="6" Grid.Column="1" Margin="20 0 0 0" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Right" >Recipt</Button>
         </StackPanel>
     </Grid>

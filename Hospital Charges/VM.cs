@@ -13,10 +13,11 @@ namespace Hospital_Charges
         #region Constants
         const string DAYS_HELP_TEXT = "Day(s) Spent at the Hospital";
         const float TAX_PERCENT = 13;
+        const decimal CHARGE_PER_DAY = 350;
         #endregion
 
         #region Properties
-        private decimal daysCharge = 350;
+        private decimal daysCharge;
         public decimal DaysCharge { 
             get { return daysCharge; }
             set { daysCharge = value; notifyChange(); }
@@ -100,10 +101,9 @@ namespace Hospital_Charges
         }
         #endregion
 
-        public decimal CalcStayCharge()
+        private decimal CalcStayCharge()
         {
-            decimal charge = DaysCharge * (decimal)InputDays;
-            charge = AddTax(charge);
+            decimal charge = CHARGE_PER_DAY * (decimal)InputDays;
 
             return charge;
         }
@@ -111,7 +111,7 @@ namespace Hospital_Charges
         private decimal CalcMiscCharge()
         {
             decimal? miscCharge = (InputMedicalCharges + InputSurgicalCharges + InputLabFees + InputRehabilitationCharges);
-            miscCharge = AddTax((decimal)miscCharge);
+            //miscCharge = AddTax((decimal)miscCharge);
 
             return (decimal)miscCharge;
         }
@@ -119,6 +119,26 @@ namespace Hospital_Charges
         private decimal CalcTotalCharges()
         {
             return CalcStayCharge() + CalcMiscCharge();
+        }
+
+        public void AddChargesWithTax()
+        {
+            DaysCharge = 0;
+            DaysCharge = AddTax(CalcStayCharge());
+            MedicalCharges = AddTax((decimal)InputMedicalCharges);
+            SurgicalCharges = AddTax((decimal)InputSurgicalCharges);
+            LabFees = AddTax((decimal)InputLabFees);
+            RehabilitationCharges = AddTax((decimal)InputRehabilitationCharges);
+        }
+
+        public void AddChargesWithoutTax()
+        {
+            DaysCharge = 0;
+            DaysCharge = CalcStayCharge();
+            MedicalCharges = (decimal)InputMedicalCharges;
+            SurgicalCharges = (decimal)InputSurgicalCharges;
+            LabFees = (decimal)InputLabFees;
+            RehabilitationCharges = (decimal)InputRehabilitationCharges;
         }
 
         private decimal AddTax(decimal amount)

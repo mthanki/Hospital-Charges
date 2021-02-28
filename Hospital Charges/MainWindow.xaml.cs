@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -30,7 +31,16 @@ namespace Hospital_Charges
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            
+
+        }
+
+        private void ViewTaxToggle_Changed(object sender, RoutedEventArgs e)
+        {
+            var toggle = sender as ToggleButton;
+            if (!toggle.IsChecked ?? false)
+                vm.AddChargesWithoutTax();
+            else
+                vm.AddChargesWithTax();
         }
     }
 }
