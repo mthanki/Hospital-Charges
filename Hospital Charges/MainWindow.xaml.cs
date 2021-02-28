@@ -21,6 +21,7 @@ namespace Hospital_Charges
     public partial class MainWindow : Window
     {
         VM vm = new VM();
+        MaterialDesignThemes.Wpf.PaletteHelper ph = new MaterialDesignThemes.Wpf.PaletteHelper();
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace Hospital_Charges
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
-
+            //ph.SetTheme();
         }
     }
 }

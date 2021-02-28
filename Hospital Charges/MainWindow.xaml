@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hospital_Charges"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -11,6 +12,16 @@
         TextElement.FontSize="14"
         ResizeMode="CanMinimize"
         Title="Hospital Charges" Height="450" Width="800">
+    <Window.Resources>
+        <!--
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder/>
+                <TextBlock Foreground="Red" FontSize="20">*</TextBlock>
+            </StackPanel>
+        </ControlTemplate>
+        -->
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100*"/>
@@ -20,27 +31,84 @@
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width=".5*"/>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="30*"/>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
+        <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="2" Fill="#FFFFD5DC" />
+        <Rectangle Grid.RowSpan="8" Grid.Column="2" Grid.ColumnSpan="1" Fill="#ab0024" />
+        <!--
         <Label Content="Day(s) stayed" FontSize="18" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"></Label>
-        <TextBox Grid.Row="1" Grid.Column="2" ToolTip="Please enter Number of Days stayed at Hospital" Margin="5 0 0 0" FontSize="20" Text="{Binding InputDays}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        -->
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" ToolTip="Please enter Number of Days stayed at Hospital" Margin="0 0 10 10" FontSize="14" Text="{Binding InputDays}" >
+            <materialDesign:HintAssist.Hint>
+                <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                    <!--
+                    <materialDesign:PackIcon Kind="AccessPoint" />
+                    -->
+                    <TextBlock Text="Day(s) Stayed at Hospital" />
+                </StackPanel>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        <!--
         <Label Content="Medical charges" FontSize="18" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center"></Label>
-        <TextBox Grid.Row="2" Grid.Column="2" Margin="5 0 0 0"  FontSize="20" Text="{Binding InputMedicalCharges, StringFormat=C}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        -->
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="0 0 10 10"  FontSize="14" Text="{Binding InputMedicalCharges}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
+            <materialDesign:HintAssist.Hint>
+                <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                    <!--
+                    <materialDesign:PackIcon Kind="AccessPoint" />
+                    -->
+                    <TextBlock Text="Day(s) Stayed at Hospital" />
+                </StackPanel>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        <!--
         <Label Content="Surgical charges" FontSize="18" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center"></Label>
-        <TextBox Grid.Row="3" Grid.Column="2" Margin="5 0 0 0" FontSize="20" Text="{Binding InputSurgicalCharges, StringFormat=C}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        -->
+        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Margin="0 0 10 10" FontSize="14" Text="{Binding InputSurgicalCharges}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
+            <materialDesign:HintAssist.Hint>
+                <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                    <!--
+                    <materialDesign:PackIcon Kind="AccessPoint" />
+                    -->
+                    <TextBlock Text="Day(s) Stayed at Hospital" />
+                </StackPanel>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        <!--
         <Label Content="Lab fees" FontSize="18" Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center"></Label>
-        <TextBox Grid.Row="4" Grid.Column="2" Margin="5 0 0 0" FontSize="20" Text="{Binding InputLabFees, StringFormat=C}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        -->
+        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" Margin="0 0 10 10" FontSize="14" Text="{Binding InputLabFees}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
+            <materialDesign:HintAssist.Hint>
+                <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                    <!--
+                    <materialDesign:PackIcon Kind="AccessPoint" />
+                    -->
+                    <TextBlock Text="Day(s) Stayed at Hospital" />
+                </StackPanel>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        <!--
         <Label Content="Rehabilitation charges" FontSize="18" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center"></Label>
-        <TextBox Grid.Row="5" Grid.Column="2" Margin="5 0 0 0" FontSize="20" Text="{Binding InputRehabilitationCharges, StringFormat=C}" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        -->
+        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Margin="0 0 10 10" FontSize="14" Text="{Binding InputRehabilitationCharges}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
+            <materialDesign:HintAssist.Hint>
+                <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
+                    <!--
+                    <materialDesign:PackIcon Kind="AccessPoint" />
+                    -->
+                    <TextBlock Text="Day(s) Stayed at Hospital" />
+                </StackPanel>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
         <Label Content="Amount with Tax(13%)" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
         <Label Content="{Binding Days}" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
         <Label Content="{Binding MedicalCharges}" ContentStringFormat="C" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="20"></Label>

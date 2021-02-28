@@ -38,7 +38,7 @@ namespace Hospital_Charges
             set { total = value; notifyChange(); }
         }
 
-        private decimal medicalCharges = 0;
+        private decimal medicalCharges;
         public decimal MedicalCharges
         {
             get { return medicalCharges; }
