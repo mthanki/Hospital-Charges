@@ -30,7 +30,7 @@ namespace Hospital_Charges
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
-            //ph.SetTheme();
+            
         }
     }
 }
