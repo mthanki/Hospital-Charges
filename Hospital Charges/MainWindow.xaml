@@ -47,7 +47,7 @@
         <!--
         <Label Content="Day(s) stayed" FontSize="18" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"></Label>
         -->
-        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" ToolTip="Please enter Number of Days stayed at Hospital" Margin="0 0 10 10" FontSize="16" Text="{Binding InputDays}" >
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" PreviewTextInput="Days_TextBox_PreviewTextInput" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" ToolTip="Please enter Number of Days stayed at Hospital" Margin="0 0 10 10" FontSize="16" Text="{Binding InputDays}" >
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
                     <!--
@@ -60,7 +60,7 @@
         <!--
         <Label Content="Medical charges" FontSize="18" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center"></Label>
         -->
-        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="0 0 10 10"  FontSize="16" Text="{Binding InputMedicalCharges}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" PreviewTextInput="TextBox_PreviewTextInput" Margin="0 0 10 10"  FontSize="16" Text="{Binding InputMedicalCharges}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
                     <!--
@@ -110,9 +110,9 @@
             </materialDesign:HintAssist.Hint>
         </TextBox>
         <Label Content="Amount Due" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <DockPanel VerticalAlignment="Center" Grid.Column="5">
-            <ToggleButton Name="ViewTaxToggle" VerticalContentAlignment="Center" Checked="ViewTaxToggle_Changed" Unchecked="ViewTaxToggle_Changed"></ToggleButton>
-            <TextBlock FontSize="18" Margin="5 0 0 2">Include Tax</TextBlock>
+        <DockPanel VerticalAlignment="Center" Grid.Column="5" Grid.ColumnSpan="2">
+            <ToggleButton IsChecked="{Binding ShowWithTax}" Name="ViewTaxToggle" VerticalContentAlignment="Center" Checked="ViewTaxToggle_Changed" Unchecked="ViewTaxToggle_Changed"></ToggleButton>
+            <TextBlock FontSize="18" Margin="5 0 0 2">View Tax</TextBlock>
         </DockPanel>
         <Label Content="{Binding DaysCharge}" ContentStringFormat="C" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
         <Label Content="{Binding MedicalCharges}" ContentStringFormat="C" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="20"></Label>
@@ -120,8 +120,9 @@
         <Label Content="{Binding LabFees}" ContentStringFormat="C" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
         <Label Content="{Binding RehabilitationCharges}" ContentStringFormat="C" Grid.Row="5" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-            <Button Grid.Row="6" Name="Calculate" Grid.Column="1" IsEnabled="False" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Left" Click="Calculate_Click" >Calculate</Button>
+            <Button Grid.Row="6" Name="Calculate" Grid.Column="1" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Left" Click="Calculate_Click" >Calculate</Button>
             <Button Grid.Row="6" Grid.Column="1" Margin="20 0 0 0" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Right" >Recipt</Button>
         </StackPanel>
+        <Label Content="{Binding Total}" ContentStringFormat="C" FontWeight="Bold" Foreground="Green" Grid.Row="6" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
     </Grid>
 </Window>

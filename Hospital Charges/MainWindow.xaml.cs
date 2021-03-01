@@ -31,7 +31,7 @@ namespace Hospital_Charges
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
         {
-
+            vm.Calculate();
         }
 
         private void ViewTaxToggle_Changed(object sender, RoutedEventArgs e)
@@ -41,6 +41,27 @@ namespace Hospital_Charges
                 vm.AddChargesWithoutTax();
             else
                 vm.AddChargesWithTax();
+        }
+
+        private void Days_TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            e.Handled = !int.TryParse(tb.Text + e.Text, out _);
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            bool isDecimal = decimal.TryParse(tb.Text + e.Text, out decimal result);
+            if (isDecimal)
+            {
+                if (result > 0)
+                    e.Handled = false;
+                else
+                    e.Handled = true;
+            }
+            else
+                e.Handled = true;
         }
     }
 }
