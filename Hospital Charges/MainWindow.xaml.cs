@@ -63,5 +63,10 @@ namespace Hospital_Charges
             else
                 e.Handled = true;
         }
+
+        private void DarkModeToggle_Changed(object sender, RoutedEventArgs e)
+        {
+            vm.changeTheme();
+        }
     }
 }

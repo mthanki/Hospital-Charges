@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Hospital_Charges
 {
     class VM : INotifyPropertyChanged
     {
+        private readonly PaletteHelper _paletteHelper = new PaletteHelper();
+
         #region Constants
         const string DAYS_HELP_TEXT = "Day(s) Spent at the Hospital";
         const float TAX_PERCENT = 13;
@@ -28,6 +31,13 @@ namespace Hospital_Charges
         {
             get { return showWithTax; }
             set { showWithTax = value; notifyChange(); }
+        }
+
+        private bool isDarkMode = false;
+        public bool IsDarkMode
+        {
+            get { return isDarkMode; }
+            set { isDarkMode = value; notifyChange(); }
         }
 
         private int? inputDays;
@@ -153,6 +163,8 @@ namespace Hospital_Charges
 
         public void Calculate()
         {
+            //bool isValid = int.TryParse(InputDays);
+
             if (ShowWithTax)
             {
                 DaysCharge = AddTax(CalcStayCharge((int)InputDays, CHARGE_PER_DAY));
@@ -163,6 +175,14 @@ namespace Hospital_Charges
                 DaysCharge = CalcStayCharge((int)InputDays, CHARGE_PER_DAY);
                 AddChargesWithoutTax();
             }
+        }
+
+        public void changeTheme()
+        {
+            ITheme theme = _paletteHelper.GetTheme();
+            IBaseTheme baseTheme = IsDarkMode ? new MaterialDesignDarkTheme() : (IBaseTheme)new MaterialDesignLightTheme();
+            theme.SetBaseTheme(baseTheme);
+            _paletteHelper.SetTheme(theme);
         }
 
         private decimal AddTax(decimal amount)

@@ -124,5 +124,9 @@
             <Button Grid.Row="6" Grid.Column="1" Margin="20 0 0 0" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Right" >Recipt</Button>
         </StackPanel>
         <Label Content="{Binding Total}" ContentStringFormat="C" FontWeight="Bold" Foreground="Green" Grid.Row="6" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"></Label>
+        <DockPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="1">
+            <ToggleButton IsChecked="{Binding IsDarkMode}" Name="DarkModeToggle" VerticalContentAlignment="Center" Checked="DarkModeToggle_Changed" Unchecked="DarkModeToggle_Changed"></ToggleButton>
+            <TextBlock FontSize="18" Margin="0 0 0 0">Dark Mode</TextBlock>
+        </DockPanel>
     </Grid>
 </Window>
