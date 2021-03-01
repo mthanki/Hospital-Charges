@@ -21,7 +21,7 @@ namespace Hospital_Charges
 
         #region Properties
         private decimal daysCharge;
-        public decimal DaysCharge { 
+        public decimal DaysCharge {
             get { return daysCharge; }
             set { daysCharge = value; notifyChange(); }
         }
@@ -127,44 +127,56 @@ namespace Hospital_Charges
         private decimal CalcMiscCharge()
         {
             decimal? miscCharge = (InputMedicalCharges + InputSurgicalCharges + InputLabFees + InputRehabilitationCharges);
-            miscCharge = miscCharge > 0 ? AddTax((decimal)miscCharge) : 0;
+            miscCharge = miscCharge <= 0 ? 0 : ShowWithTax ? AddTax((decimal)miscCharge) : (decimal)miscCharge;
 
             return (decimal)miscCharge;
         }
 
         private decimal CalcTotalCharges()
         {
-            return CalcStayCharge((int)InputDays, CHARGE_PER_DAY) + CalcMiscCharge();
+            return CalcStayCharge(InputDays > 0 ? (int)InputDays : 0, CHARGE_PER_DAY) + CalcMiscCharge();
         }
 
         public void AddChargesWithTax()
         {
-            DaysCharge = 0;
             DaysCharge = AddTax(DaysCharge);
-            MedicalCharges = AddTax((decimal)InputMedicalCharges);
-            SurgicalCharges = AddTax((decimal)InputSurgicalCharges);
-            LabFees = AddTax((decimal)InputLabFees);
-            RehabilitationCharges = AddTax((decimal)InputRehabilitationCharges);
+            MedicalCharges = AddTax(ParseToDecimal(InputMedicalCharges));
+            SurgicalCharges = AddTax(ParseToDecimal(InputSurgicalCharges));
+            LabFees = AddTax(ParseToDecimal(InputLabFees));
+            RehabilitationCharges = AddTax(ParseToDecimal(InputRehabilitationCharges));
 
             Total = CalcTotalCharges();
         }
 
         public void AddChargesWithoutTax()
         {
-            DaysCharge = 0;
-            //DaysCharge = CalcStayCharge();
-            MedicalCharges = (decimal)InputMedicalCharges;
-            SurgicalCharges = (decimal)InputSurgicalCharges;
-            LabFees = (decimal)InputLabFees;
-            RehabilitationCharges = (decimal)InputRehabilitationCharges;
+            DaysCharge = CalcStayCharge(InputDays >= 0 ? (int)InputDays : 0, CHARGE_PER_DAY);
+            MedicalCharges = ParseToDecimal(InputMedicalCharges);
+            SurgicalCharges = ParseToDecimal(InputSurgicalCharges);
+            LabFees = ParseToDecimal(InputLabFees);
+            RehabilitationCharges = ParseToDecimal(InputRehabilitationCharges);
 
             Total = CalcTotalCharges();
         }
 
+        public decimal ParseToDecimal(decimal? value)
+        {
+            if (value != null && value >= 0)
+                return (decimal)value;
+            else
+                return 0;
+        }
+
+        public decimal ParseToInt(int? value)
+        {
+            if (value != null && value <= 0)
+                return (int)value;
+            else
+                return 0;
+        }
+
         public void Calculate()
         {
-            //bool isValid = int.TryParse(InputDays);
-
             if (ShowWithTax)
             {
                 DaysCharge = AddTax(CalcStayCharge((int)InputDays, CHARGE_PER_DAY));
@@ -172,7 +184,7 @@ namespace Hospital_Charges
             }
             else
             {
-                DaysCharge = CalcStayCharge((int)InputDays, CHARGE_PER_DAY);
+                DaysCharge = CalcStayCharge(InputDays > 0 ? (int)InputDays : 0, CHARGE_PER_DAY);
                 AddChargesWithoutTax();
             }
         }
