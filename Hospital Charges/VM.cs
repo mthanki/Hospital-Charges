@@ -26,13 +26,6 @@ namespace Hospital_Charges
             set { daysCharge = value; notifyChange(); }
         }
 
-        private bool showWithTax = false;
-        public bool ShowWithTax
-        {
-            get { return showWithTax; }
-            set { showWithTax = value; notifyChange(); }
-        }
-
         private bool isDarkMode = false;
         public bool IsDarkMode
         {
@@ -47,6 +40,20 @@ namespace Hospital_Charges
             set { inputDays = value; notifyChange(); }
         }
 
+        private decimal daysChargeTax;
+        public decimal DaysChargeTax
+        {
+            get { return daysChargeTax; }
+            set { daysChargeTax = value; notifyChange(); }
+        }
+
+        private decimal miscCharge;
+        public decimal MiscCharge
+        {
+            get { return miscCharge; }
+            set { miscCharge = value; notifyChange(); }
+        }
+
         private int taxPercent = 0;
         public int TaxPercent
         {
@@ -54,18 +61,18 @@ namespace Hospital_Charges
             set { taxPercent = value; notifyChange(); }
         }
 
-        private decimal total = 0;
-        public decimal Total
+        private decimal totalTax = 0;
+        public decimal TotalTax
         {
-            get { return total; }
-            set { total = value; notifyChange(); }
+            get { return totalTax; }
+            set { totalTax = value; notifyChange(); }
         }
 
-        private decimal medicalCharges;
-        public decimal MedicalCharges
+        private decimal totalWithTax = 0;
+        public decimal TotalWithTax
         {
-            get { return medicalCharges; }
-            set { medicalCharges = value; notifyChange(); }
+            get { return totalWithTax; }
+            set { totalWithTax = value; notifyChange(); }
         }
 
         private decimal? inputMedicalCharges;
@@ -75,13 +82,6 @@ namespace Hospital_Charges
             set { inputMedicalCharges = value; notifyChange(); }
         }
 
-        private decimal surgicalCharges = 0;
-        public decimal SurgicalCharges
-        {
-            get { return surgicalCharges; }
-            set { surgicalCharges = value; notifyChange(); }
-        }
-
         private decimal? inputSurgicalCharges;
         public decimal? InputSurgicalCharges
         {
@@ -89,25 +89,11 @@ namespace Hospital_Charges
             set { inputSurgicalCharges = value; notifyChange(); }
         }
 
-        private decimal labFees = 0;
-        public decimal LabFees
-        {
-            get { return labFees; }
-            set { labFees = value; notifyChange(); }
-        }
-
         private decimal? inputLabFees;
         public decimal? InputLabFees
         {
             get { return inputLabFees; }
             set { inputLabFees = value; notifyChange(); }
-        }
-
-        private decimal rehabilitationCharges = 0;
-        public decimal RehabilitationCharges
-        {
-            get { return rehabilitationCharges; }
-            set { rehabilitationCharges = value; notifyChange(); }
         }
 
         private decimal? inputRehabilitationCharges;
@@ -120,43 +106,18 @@ namespace Hospital_Charges
 
         private decimal CalcStayCharge(int daysInput, decimal perDayCharge)
         {
-            //charge = CHARGE_PER_DAY * (decimal)InputDays;
             return InputDays > 0 ? CHARGE_PER_DAY * (decimal)InputDays : 0;
         }
 
         private decimal CalcMiscCharge()
         {
-            decimal? miscCharge = (InputMedicalCharges + InputSurgicalCharges + InputLabFees + InputRehabilitationCharges);
-            miscCharge = miscCharge <= 0 ? 0 : ShowWithTax ? AddTax((decimal)miscCharge) : (decimal)miscCharge;
-
-            return (decimal)miscCharge;
+            decimal? miscCharge = ((InputMedicalCharges ?? 0) + (InputSurgicalCharges ?? 0) + (InputLabFees ?? 0) + (InputRehabilitationCharges ?? 0));
+            return miscCharge ?? 0;
         }
 
         private decimal CalcTotalCharges()
         {
             return CalcStayCharge(InputDays > 0 ? (int)InputDays : 0, CHARGE_PER_DAY) + CalcMiscCharge();
-        }
-
-        public void AddChargesWithTax()
-        {
-            DaysCharge = AddTax(DaysCharge);
-            MedicalCharges = AddTax(ParseToDecimal(InputMedicalCharges));
-            SurgicalCharges = AddTax(ParseToDecimal(InputSurgicalCharges));
-            LabFees = AddTax(ParseToDecimal(InputLabFees));
-            RehabilitationCharges = AddTax(ParseToDecimal(InputRehabilitationCharges));
-
-            Total = CalcTotalCharges();
-        }
-
-        public void AddChargesWithoutTax()
-        {
-            DaysCharge = CalcStayCharge(InputDays >= 0 ? (int)InputDays : 0, CHARGE_PER_DAY);
-            MedicalCharges = ParseToDecimal(InputMedicalCharges);
-            SurgicalCharges = ParseToDecimal(InputSurgicalCharges);
-            LabFees = ParseToDecimal(InputLabFees);
-            RehabilitationCharges = ParseToDecimal(InputRehabilitationCharges);
-
-            Total = CalcTotalCharges();
         }
 
         public decimal ParseToDecimal(decimal? value)
@@ -177,16 +138,11 @@ namespace Hospital_Charges
 
         public void Calculate()
         {
-            if (ShowWithTax)
-            {
-                DaysCharge = AddTax(CalcStayCharge((int)InputDays, CHARGE_PER_DAY));
-                AddChargesWithTax();
-            }
-            else
-            {
-                DaysCharge = CalcStayCharge(InputDays > 0 ? (int)InputDays : 0, CHARGE_PER_DAY);
-                AddChargesWithoutTax();
-            }
+            DaysCharge = CalcStayCharge(InputDays > 0 ? (int)InputDays : 0, CHARGE_PER_DAY);
+            MiscCharge = CalcMiscCharge();
+            decimal total = CalcTotalCharges();
+            TotalTax = CalcTax(total);
+            TotalWithTax = total + TotalTax;
         }
 
         public void changeTheme()
@@ -197,9 +153,9 @@ namespace Hospital_Charges
             _paletteHelper.SetTheme(theme);
         }
 
-        private decimal AddTax(decimal amount)
+        private decimal CalcTax(decimal amount)
         {
-            return amount >= 0 ? (amount + ((amount * (decimal)TAX_PERCENT) /100)) : 0;
+            return amount > 0 ? (amount * (decimal)TAX_PERCENT / 100) : 0;
         }
 
 
