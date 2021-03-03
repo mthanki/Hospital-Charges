@@ -26,6 +26,7 @@ namespace Hospital_Charges
         {
             InitializeComponent();
             DataContext = vm;
+            vm.CreateDirectory();
         }
 
         private void Calculate_Click(object sender, RoutedEventArgs e)
@@ -45,7 +46,7 @@ namespace Hospital_Charges
             bool isDecimal = decimal.TryParse(tb.Text + e.Text, out decimal result);
             if (isDecimal)
             {
-                if (result > 0)
+                if (result >= 0)
                     e.Handled = false;
                 else
                     e.Handled = true;
@@ -57,6 +58,11 @@ namespace Hospital_Charges
         private void DarkModeToggle_Changed(object sender, RoutedEventArgs e)
         {
             vm.changeTheme();
+        }
+
+        private void Recipt_Click(object sender, RoutedEventArgs e)
+        {
+            vm.GenerateRecipt();
         }
     }
 }

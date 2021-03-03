@@ -27,12 +27,12 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="28*"/>
             <ColumnDefinition Width=".1*"/>
             <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="29*"/>
             <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="18*"/>
         </Grid.ColumnDefinitions>
         <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="2" Fill="#FFFFD5DC" />
         <Rectangle Grid.RowSpan="8" Grid.Column="2" Grid.ColumnSpan="1" Fill="#ab0024" />
@@ -50,42 +50,42 @@
                 </StackPanel>
             </materialDesign:HintAssist.Hint>
         </TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Margin="0 0 10 10" FontSize="16" Text="{Binding InputSurgicalCharges}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
+        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" PreviewTextInput="TextBox_PreviewTextInput" Margin="0 0 10 10" FontSize="16" Text="{Binding InputSurgicalCharges}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
                     <TextBlock Text="Surgical Charges" />
                 </StackPanel>
             </materialDesign:HintAssist.Hint>
         </TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" Margin="0 0 10 10" FontSize="16" Text="{Binding InputLabFees}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
+        <TextBox Grid.Row="4" Grid.Column="1" PreviewTextInput="TextBox_PreviewTextInput" Grid.ColumnSpan="1" Margin="0 0 10 10" FontSize="16" Text="{Binding InputLabFees}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
                     <TextBlock Text="Lab Fees" />
                 </StackPanel>
             </materialDesign:HintAssist.Hint>
         </TextBox>
-        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Margin="0 0 10 10" FontSize="16" Text="{Binding InputRehabilitationCharges}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
+        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" PreviewTextInput="TextBox_PreviewTextInput" Margin="0 0 10 10" FontSize="16" Text="{Binding InputRehabilitationCharges}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.PrefixText="$" >
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
                     <TextBlock Text="Rehabilitation Charges" />
                 </StackPanel>
             </materialDesign:HintAssist.Hint>
         </TextBox>
-        <Label Content="Stay Charge" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <Label Content="Miscellaneous Charge" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <Label Content="Tax" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <Label Content="Total" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <Label Content="{Binding DaysCharge}" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <Label Content="{Binding MiscCharge}" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <Label Content="{Binding TotalTax}" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
-        <Label Content="{Binding TotalWithTax}" ContentStringFormat="C" FontWeight="Bold" Foreground="Green"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="Stay Charge" Grid.Row="1" Grid.Column="4" FontStyle="Italic" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="Miscellaneous Charge" Grid.Row="2" FontStyle="Italic" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="Tax" Grid.Row="3" Grid.Column="4" FontStyle="Italic" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="Total" Grid.Row="4" FontStyle="Italic" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="{Binding DaysCharge}" ContentStringFormat="C" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="{Binding MiscCharge}" ContentStringFormat="C" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="{Binding TotalTax}" ContentStringFormat="C" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
+        <Label Content="{Binding TotalWithTax}" ContentStringFormat="C" FontWeight="Bold" Foreground="Green"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
             <Button Grid.Row="6" Name="Calculate" Grid.Column="1" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Left" Click="Calculate_Click" >Calculate</Button>
-            <Button Grid.Row="6" Grid.Column="1" Margin="20 0 0 0" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Right" >Recipt</Button>
+            <Button IsEnabled="{Binding TotalWithTax}" Grid.Row="6" Name="Recipt" Grid.Column="1" Margin="20 0 0 0" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Right" Click="Recipt_Click" >Recipt</Button>
         </StackPanel>
         <DockPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="1">
             <ToggleButton IsChecked="{Binding IsDarkMode}" Name="DarkModeToggle" VerticalContentAlignment="Center" Checked="DarkModeToggle_Changed" Unchecked="DarkModeToggle_Changed"></ToggleButton>
-            <TextBlock FontSize="18" Margin="0 0 0 0">Dark Mode</TextBlock>
+            <TextBlock Margin="0 0 0 3" FontSize="18">Dark Mode</TextBlock>
         </DockPanel>
     </Grid>
 </Window>

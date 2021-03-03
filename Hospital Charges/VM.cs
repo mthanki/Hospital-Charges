@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -12,11 +13,16 @@ namespace Hospital_Charges
     class VM : INotifyPropertyChanged
     {
         private readonly PaletteHelper _paletteHelper = new PaletteHelper();
+        readonly StringBuilder output = new StringBuilder();
+        string fullName;
+        string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), RESULT_FOLDER_NAME);
 
         #region Constants
         const string DAYS_HELP_TEXT = "Day(s) Spent at the Hospital";
         const float TAX_PERCENT = 13;
         const decimal CHARGE_PER_DAY = 350;
+        const string FILENAME = "reciept.txt";
+        const string RESULT_FOLDER_NAME = "HospitalCharges";
         #endregion
 
         #region Properties
@@ -143,6 +149,22 @@ namespace Hospital_Charges
             decimal total = CalcTotalCharges();
             TotalTax = CalcTax(total);
             TotalWithTax = total + TotalTax;
+        }
+        public void CreateDirectory()
+        {
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(filePath);
+            fullName = System.IO.Path.Combine(filePath, FILENAME);
+        }
+        public void GenerateRecipt()
+        {
+            output.Append($"Date: {DateTime.Now:MMMM dd, yyyy HH:mm}{Environment.NewLine}");
+            output.Append($"Stay Charge: ${DaysCharge.ToString()}{Environment.NewLine}");
+            output.Append($"Miscellaneous Charge: ${MiscCharge.ToString()}{Environment.NewLine}");
+            output.Append($"Tax: ${TotalTax.ToString()}{Environment.NewLine}");
+            output.Append($"Total: ${TotalWithTax.ToString()}{Environment.NewLine}");
+            output.AppendLine();
+            File.AppendAllText(fullName, output.ToString());
         }
 
         public void changeTheme()
