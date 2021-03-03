@@ -1,24 +1,21 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Hospital_Charges
 {
     class VM : INotifyPropertyChanged
     {
         private readonly PaletteHelper _paletteHelper = new PaletteHelper();
+
         readonly StringBuilder output = new StringBuilder();
         string fullName;
-        string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), RESULT_FOLDER_NAME);
+        string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), RESULT_FOLDER_NAME);
 
         #region Constants
-        const string DAYS_HELP_TEXT = "Day(s) Spent at the Hospital";
         const float TAX_PERCENT = 13;
         const decimal CHARGE_PER_DAY = 350;
         const string FILENAME = "reciept.txt";
@@ -27,89 +24,91 @@ namespace Hospital_Charges
 
         #region Properties
         private decimal daysCharge;
-        public decimal DaysCharge {
+        public decimal DaysCharge
+        {
             get { return daysCharge; }
-            set { daysCharge = value; notifyChange(); }
+            set { daysCharge = value; NotifyChange(); }
         }
 
         private bool isDarkMode = false;
         public bool IsDarkMode
         {
             get { return isDarkMode; }
-            set { isDarkMode = value; notifyChange(); }
+            set { isDarkMode = value; NotifyChange(); }
         }
 
         private int? inputDays;
         public int? InputDays
         {
             get { return inputDays; }
-            set { inputDays = value; notifyChange(); }
+            set { inputDays = value; NotifyChange(); }
         }
 
         private decimal daysChargeTax;
         public decimal DaysChargeTax
         {
             get { return daysChargeTax; }
-            set { daysChargeTax = value; notifyChange(); }
+            set { daysChargeTax = value; NotifyChange(); }
         }
 
         private decimal miscCharge;
         public decimal MiscCharge
         {
             get { return miscCharge; }
-            set { miscCharge = value; notifyChange(); }
+            set { miscCharge = value; NotifyChange(); }
         }
 
         private int taxPercent = 0;
         public int TaxPercent
         {
             get { return taxPercent; }
-            set { taxPercent = value; notifyChange(); }
+            set { taxPercent = value; NotifyChange(); }
         }
 
         private decimal totalTax = 0;
         public decimal TotalTax
         {
             get { return totalTax; }
-            set { totalTax = value; notifyChange(); }
+            set { totalTax = value; NotifyChange(); }
         }
 
         private decimal totalWithTax = 0;
         public decimal TotalWithTax
         {
             get { return totalWithTax; }
-            set { totalWithTax = value; notifyChange(); }
+            set { totalWithTax = value; NotifyChange(); }
         }
 
         private decimal? inputMedicalCharges;
         public decimal? InputMedicalCharges
         {
             get { return inputMedicalCharges; }
-            set { inputMedicalCharges = value; notifyChange(); }
+            set { inputMedicalCharges = value; NotifyChange(); }
         }
 
         private decimal? inputSurgicalCharges;
         public decimal? InputSurgicalCharges
         {
             get { return inputSurgicalCharges; }
-            set { inputSurgicalCharges = value; notifyChange(); }
+            set { inputSurgicalCharges = value; NotifyChange(); }
         }
 
         private decimal? inputLabFees;
         public decimal? InputLabFees
         {
             get { return inputLabFees; }
-            set { inputLabFees = value; notifyChange(); }
+            set { inputLabFees = value; NotifyChange(); }
         }
 
         private decimal? inputRehabilitationCharges;
         public decimal? InputRehabilitationCharges
         {
             get { return inputRehabilitationCharges; }
-            set { inputRehabilitationCharges = value; notifyChange(); }
+            set { inputRehabilitationCharges = value; NotifyChange(); }
         }
         #endregion
 
+        #region Methods
         private decimal CalcStayCharge(int daysInput, decimal perDayCharge)
         {
             return InputDays > 0 ? CHARGE_PER_DAY * (decimal)InputDays : 0;
@@ -117,29 +116,13 @@ namespace Hospital_Charges
 
         private decimal CalcMiscCharge()
         {
-            decimal? miscCharge = ((InputMedicalCharges ?? 0) + (InputSurgicalCharges ?? 0) + (InputLabFees ?? 0) + (InputRehabilitationCharges ?? 0));
+            decimal? miscCharge = (InputMedicalCharges ?? 0) + (InputSurgicalCharges ?? 0) + (InputLabFees ?? 0) + (InputRehabilitationCharges ?? 0);
             return miscCharge ?? 0;
         }
 
         private decimal CalcTotalCharges()
         {
             return CalcStayCharge(InputDays > 0 ? (int)InputDays : 0, CHARGE_PER_DAY) + CalcMiscCharge();
-        }
-
-        public decimal ParseToDecimal(decimal? value)
-        {
-            if (value != null && value >= 0)
-                return (decimal)value;
-            else
-                return 0;
-        }
-
-        public decimal ParseToInt(int? value)
-        {
-            if (value != null && value <= 0)
-                return (int)value;
-            else
-                return 0;
         }
 
         public void Calculate()
@@ -150,12 +133,14 @@ namespace Hospital_Charges
             TotalTax = CalcTax(total);
             TotalWithTax = total + TotalTax;
         }
+
         public void CreateDirectory()
         {
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);
-            fullName = System.IO.Path.Combine(filePath, FILENAME);
+            fullName = Path.Combine(filePath, FILENAME);
         }
+
         public void GenerateRecipt()
         {
             output.Append($"Date: {DateTime.Now:MMMM dd, yyyy HH:mm}{Environment.NewLine}");
@@ -167,7 +152,7 @@ namespace Hospital_Charges
             File.AppendAllText(fullName, output.ToString());
         }
 
-        public void changeTheme()
+        public void ChangeTheme()
         {
             ITheme theme = _paletteHelper.GetTheme();
             IBaseTheme baseTheme = IsDarkMode ? new MaterialDesignDarkTheme() : (IBaseTheme)new MaterialDesignLightTheme();
@@ -179,14 +164,14 @@ namespace Hospital_Charges
         {
             return amount > 0 ? (amount * (decimal)TAX_PERCENT / 100) : 0;
         }
-
+        #endregion
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        private void notifyChange([CallerMemberName] string propertyName = "")
+        private void NotifyChange([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        } 
+        }
         #endregion
     }
 }

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Hospital_Charges"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -34,8 +33,8 @@
             <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="18*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="2" Fill="#FFFFD5DC" />
         <Rectangle Grid.RowSpan="8" Grid.Column="2" Grid.ColumnSpan="1" Fill="#ab0024" />
+        <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="2" Fill="#FFFFD5DC" />
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" PreviewTextInput="Days_TextBox_PreviewTextInput" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:TextFieldAssist.HasClearButton="True" ToolTip="Please enter Number of Days stayed at Hospital" Margin="0 0 10 10" FontSize="16" Text="{Binding InputDays}" >
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
@@ -71,6 +70,11 @@
                 </StackPanel>
             </materialDesign:HintAssist.Hint>
         </TextBox>
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+            <Button Grid.Row="6" Name="Calculate" Grid.Column="1" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Left" Click="Calculate_Click" >Calculate</Button>
+            <Button IsEnabled="{Binding TotalWithTax}" Grid.Row="6" Name="Recipt" Grid.Column="1" Margin="20 0 0 0" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Right" Click="Recipt_Click" >Recipt</Button>
+        </StackPanel>
+
         <Label Content="Stay Charge" Grid.Row="1" Grid.Column="4" FontStyle="Italic" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
         <Label Content="Miscellaneous Charge" Grid.Row="2" FontStyle="Italic" Grid.Column="4" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
         <Label Content="Tax" Grid.Row="3" Grid.Column="4" FontStyle="Italic" Grid.ColumnSpan="1" VerticalAlignment="Center" FontSize="18"></Label>
@@ -79,13 +83,11 @@
         <Label Content="{Binding MiscCharge}" ContentStringFormat="C" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
         <Label Content="{Binding TotalTax}" ContentStringFormat="C" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
         <Label Content="{Binding TotalWithTax}" ContentStringFormat="C" FontWeight="Bold" Foreground="Green"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="18"></Label>
-        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-            <Button Grid.Row="6" Name="Calculate" Grid.Column="1" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Left" Click="Calculate_Click" >Calculate</Button>
-            <Button IsEnabled="{Binding TotalWithTax}" Grid.Row="6" Name="Recipt" Grid.Column="1" Margin="20 0 0 0" Foreground="WhiteSmoke" Width="90" HorizontalAlignment="Right" Click="Recipt_Click" >Recipt</Button>
-        </StackPanel>
         <DockPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="1">
             <ToggleButton IsChecked="{Binding IsDarkMode}" Name="DarkModeToggle" VerticalContentAlignment="Center" Checked="DarkModeToggle_Changed" Unchecked="DarkModeToggle_Changed"></ToggleButton>
             <TextBlock Margin="0 0 0 3" FontSize="18">Dark Mode</TextBlock>
         </DockPanel>
+        <materialDesign:Snackbar Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.ColumnSpan="7" x:Name="RecieptSnackbar" MessageQueue="{materialDesign:MessageQueue}">
+        </materialDesign:Snackbar>
     </Grid>
 </Window>

@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Hospital_Charges
 {
@@ -57,12 +45,15 @@ namespace Hospital_Charges
 
         private void DarkModeToggle_Changed(object sender, RoutedEventArgs e)
         {
-            vm.changeTheme();
+            vm.ChangeTheme();
         }
 
         private void Recipt_Click(object sender, RoutedEventArgs e)
         {
             vm.GenerateRecipt();
+            var message = "Recipt Generated.";
+            RecieptSnackbar.MessageQueue.Enqueue(message);
         }
+
     }
 }
