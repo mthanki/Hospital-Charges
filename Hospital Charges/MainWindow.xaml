@@ -32,7 +32,7 @@
             <ColumnDefinition Width="18*"/>
         </Grid.ColumnDefinitions>
         <Rectangle Grid.RowSpan="8" Grid.Column="2" Grid.ColumnSpan="1" Fill="#ab0024" />
-        <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="2" Fill="#FFFFD5DC" />
+        <Rectangle Grid.RowSpan="8" Grid.ColumnSpan="2" Opacity="0.4" Fill="#FFFFD5DC" />
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" PreviewTextInput="Days_TextBox_PreviewTextInput" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:ValidationAssist.Suppress="True" materialDesign:TextFieldAssist.HasClearButton="True" ToolTip="Please enter Number of Days stayed at Hospital" Margin="0 0 10 10" FontSize="16" Text="{Binding InputDays}" >
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
