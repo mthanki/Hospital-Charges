@@ -10,6 +10,8 @@ namespace Hospital_Charges
     public partial class MainWindow : Window
     {
         VM vm = new VM();
+        const string RECIEPT_GENERATED_MESSAGE = "Recipt Generated.";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -51,8 +53,7 @@ namespace Hospital_Charges
         private void Recipt_Click(object sender, RoutedEventArgs e)
         {
             vm.GenerateRecipt();
-            var message = "Recipt Generated.";
-            RecieptSnackbar.MessageQueue.Enqueue(message);
+            RecieptSnackbar.MessageQueue.Enqueue(RECIEPT_GENERATED_MESSAGE);
         }
 
     }
