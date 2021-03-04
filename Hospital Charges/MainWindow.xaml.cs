@@ -10,7 +10,7 @@ namespace Hospital_Charges
     public partial class MainWindow : Window
     {
         VM vm = new VM();
-        const string RECIEPT_GENERATED_MESSAGE = "Recipt Generated.";
+        const string RECIEPT_GENERATED_MESSAGE = "Receipt Generated.";
 
         public MainWindow()
         {

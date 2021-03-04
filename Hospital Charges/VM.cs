@@ -18,7 +18,7 @@ namespace Hospital_Charges
         #region Constants
         const float TAX_PERCENT = 13;
         const decimal CHARGE_PER_DAY = 350;
-        const string FILENAME = "reciept.txt";
+        const string FILENAME = "receipt.txt";
         const string RESULT_FOLDER_NAME = "HospitalCharges";
         #endregion
 
@@ -109,25 +109,25 @@ namespace Hospital_Charges
         #endregion
 
         #region Methods
-        private decimal CalcStayCharge(int daysInput, decimal perDayCharge)
+        private decimal CalcStayCharge()
         {
             return InputDays > 0 ? CHARGE_PER_DAY * (decimal)InputDays : 0;
         }
 
         private decimal CalcMiscCharge()
         {
-            decimal? miscCharge = (InputMedicalCharges ?? 0) + (InputSurgicalCharges ?? 0) + (InputLabFees ?? 0) + (InputRehabilitationCharges ?? 0);
-            return miscCharge ?? 0;
+            decimal miscCharge = (InputMedicalCharges ?? 0) + (InputSurgicalCharges ?? 0) + (InputLabFees ?? 0) + (InputRehabilitationCharges ?? 0);
+            return miscCharge;
         }
 
         private decimal CalcTotalCharges()
         {
-            return CalcStayCharge(InputDays > 0 ? (int)InputDays : 0, CHARGE_PER_DAY) + CalcMiscCharge();
+            return CalcStayCharge() + CalcMiscCharge();
         }
 
         public void Calculate()
         {
-            DaysCharge = CalcStayCharge(InputDays > 0 ? (int)InputDays : 0, CHARGE_PER_DAY);
+            DaysCharge = CalcStayCharge();
             MiscCharge = CalcMiscCharge();
             decimal total = CalcTotalCharges();
             TotalTax = CalcTax(total);
